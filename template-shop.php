@@ -9,7 +9,7 @@ get_header();
 
 
 <div class="min-h-screen bg-[#fafafa]">
-    <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20 py-10 md:py-16 pb-24">
+    <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20 py-10 md:py-16">
 
         <!-- Breadcrumbs -->
         <nav class="flex text-[12px] text-[#888] mb-10" aria-label="Breadcrumb">
@@ -20,7 +20,7 @@ get_header();
         </nav>
 
         <!-- Page Header -->
-        <div class="mb-12">
+        <div class="mb-8">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
                 <div class="max-w-[700px]">
                     <span class="section-label">Authentic Indori</span>
@@ -37,7 +37,7 @@ get_header();
 
             <!-- Sidebar -->
             <aside id="shop-sidebar-container" class="hidden lg:block">
-                <div class="sticky top-28 bg-white rounded-2xl border border-brand-line p-8 shadow-[0_1px_4px_rgba(0,0,0,0.05)]">
+                <div class="sticky top-[120px] bg-white rounded-2xl border border-brand-line p-8 shadow-[0_1px_4px_rgba(0,0,0,0.05)]">
                     
                     <!-- Categories Filter -->
                     <div class="mb-10 pb-8 border-b border-brand-line/60">

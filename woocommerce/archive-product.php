@@ -79,7 +79,7 @@ form.woocommerce-ordering {
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 }
-@media (max-width: 640px) {
+@media (max-width: 480px) {
     .products {
         grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
     }
@@ -134,7 +134,7 @@ form.woocommerce-ordering {
 
             <!-- Sidebar Filters -->
             <aside id="mobile-filters" class="hidden lg:block bg-white lg:bg-transparent p-5 lg:p-0 rounded-xl lg:rounded-none border lg:border-0 border-brand-line mb-4 lg:mb-0">
-                <div class="sticky top-[140px]">
+                <div class="sticky top-[120px]">
                     
                     <!-- Category Filter -->
                     <div class="mb-8">

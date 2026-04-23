@@ -63,7 +63,7 @@ $badge_type = $badge_types[$product_id % 4];
 
 // Determine status indicator for variety
 $status_types = array(
-    array('text' => '%d bought in last hour', 'color' => 'green', 'dynamic' => rand(8, 24)),
+    array('text' => '%d bought in last hour', 'color' => 'green', 'dynamic' => (($product_id * 7) % 17) + 8),
     array('text' => 'Fresh batch today', 'color' => 'green'),
     array('text' => 'Restocked today', 'color' => 'green'),
     array('text' => 'Just launched', 'color' => 'green'),
@@ -78,8 +78,12 @@ $status = $status_types[$product_id % 4];
         <!-- Top Left Badge -->
         <?php if ( $badge_type === 'bestseller' ) : ?>
             <span class="absolute top-3 left-3 z-10 bg-brand-orange text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded">BESTSELLER</span>
-        <?php elseif ( $badge_type === 'save' && $discountRaw > 0 ) : ?>
-            <span class="absolute top-3 left-3 z-10 bg-[#E53935] text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded">SAVE <?php echo $discountRaw; ?>%</span>
+        <?php elseif ( $badge_type === 'save' ) : ?>
+            <?php if ( $discountRaw > 0 ) : ?>
+                <span class="absolute top-3 left-3 z-10 bg-[#E53935] text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded">SAVE <?php echo $discountRaw; ?>%</span>
+            <?php else : ?>
+                <span class="absolute top-3 left-3 z-10 bg-brand-orange text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded">POPULAR</span>
+            <?php endif; ?>
         <?php elseif ( $badge_type === 'new_arrival' ) : ?>
             <span class="absolute top-3 left-3 z-10 bg-[#27AE60] text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded">NEW ARRIVAL</span>
         <?php endif; ?>
@@ -124,17 +128,13 @@ $status = $status_types[$product_id % 4];
         </div>
 
         <!-- Weight Variants -->
-        <?php if ( ! empty( $weight_options ) || $product->is_type( 'simple' ) ) : 
-            // Vary number of weight options based on product ID
-            $has_third_option = ($product_id % 3 !== 0);
-            $third_option = ($product_id % 2 === 0) ? '1kg' : '500g';
-        ?>
+        <?php if ( ! empty( $weight_options ) ) : ?>
         <div class="flex items-center gap-2 flex-wrap mt-1">
-            <span class="text-[11px] font-semibold text-white bg-brand-orange py-1.5 px-3 rounded-full">200g</span>
-            <span class="text-[11px] font-medium text-[#555] bg-white py-1.5 px-3 rounded-full border border-brand-line hover:border-brand-orange cursor-pointer transition-colors">400g</span>
-            <?php if ( $has_third_option ) : ?>
-            <span class="text-[11px] font-medium text-[#555] bg-white py-1.5 px-3 rounded-full border border-brand-line hover:border-brand-orange cursor-pointer transition-colors"><?php echo $third_option; ?></span>
-            <?php endif; ?>
+            <?php $is_first = true; foreach ( $weight_options as $option ) : ?>
+                <span class="text-[13px] font-medium rounded-lg px-3 py-1 cursor-pointer transition-colors <?php echo $is_first ? 'bg-orange-500 text-white' : 'border border-gray-300 text-gray-700 hover:border-orange-500'; ?>">
+                    <?php echo esc_html( $option ); ?>
+                </span>
+            <?php $is_first = false; endforeach; ?>
         </div>
         <?php endif; ?>
         <?php endif; ?>

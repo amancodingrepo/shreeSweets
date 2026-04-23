@@ -7,12 +7,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-    <footer class="bg-brand-ink text-white mt-14 pt-16 pb-6 px-6 md:px-16 lg:px-20">
+    <footer class="bg-brand-ink text-white mt-0 pt-8 pb-6 px-6 md:px-16 lg:px-20">
       <div class="max-w-full mx-auto pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
         
         <div class="lg:col-span-1">
           <div class="font-serif text-2xl font-bold mb-3 text-white">Shree Sweets</div>
-          <p class="text-[12.5px] text-white/50 leading-relaxed max-w-[260px] mb-4.5">
+          <p class="text-[12.5px] text-white/50 leading-relaxed max-w-[260px] mb-5">
             House of Sweets, Namkeen & Sev. Family-owned and Indore-made since 1989. Crafted fresh every morning.
           </p>
           <div class="inline-flex items-center gap-1.5 py-1.5 px-3 border border-white/15 rounded text-[10.5px] text-white/45 tracking-wider mb-6">
@@ -73,7 +73,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
 
       </div>
-      <div class="max-w-full mx-auto flex flex-col md:flex-row justify-between items-center pt-8 pb-2 text-[11.5px] text-white/40 gap-4 border-t border-white/10 mt-8">
+      <div class="max-w-full mx-auto flex flex-col md:flex-row justify-between items-center pt-8 pb-2 text-[11.5px] text-white/40 gap-4 border-t border-white/10">
         <span>© 2026 Shree Sweets, Indore. All rights reserved.</span>
           <div class="flex items-center gap-2">
             <!-- Visa -->

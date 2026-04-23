@@ -439,22 +439,96 @@ acf_add_local_field_group(array(
 	'title' => 'Homepage Sections',
 	'fields' => array(
 		array(
-			'key' => 'field_hero_slides',
-			'label' => 'Hero Slides',
-			'name' => 'hero_slides',
+			'key' => 'field_hero_badge',
+			'label' => 'Top Badge',
+			'name' => 'badge',
+			'type' => 'text',
+			'instructions' => 'Optional badge like "Festive Offer"'
+		),
+		array(
+			'key' => 'field_hero_badge_color',
+			'label' => 'Badge Color Class',
+			'name' => 'badge_color',
+			'type' => 'text',
+			'default_value' => 'bg-brand-orange'
+		),
+		array(
+			'key' => 'field_hero_title',
+			'label' => 'Main Heading',
+			'name' => 'title',
+			'type' => 'textarea',
+			'new_lines' => 'br',
+			'instructions' => 'Keep under 2 lines'
+		),
+		array(
+			'key' => 'field_hero_subtitle',
+			'label' => 'Subtitle',
+			'name' => 'subtitle',
+			'type' => 'text'
+		),
+		array(
+			'key' => 'field_hero_description',
+			'label' => 'Description',
+			'name' => 'description',
+			'type' => 'textarea'
+		),
+		array(
+			'key' => 'field_hero_button_text',
+			'label' => 'Button Text',
+			'name' => 'button_text',
+			'type' => 'text',
+			'default_value' => 'Shop Now ›'
+		),
+		array(
+			'key' => 'field_hero_button_link',
+			'label' => 'Button Link',
+			'name' => 'button_link',
+			'type' => 'url'
+		),
+		array(
+			'key' => 'field_hero_background_image',
+			'label' => 'Background Image',
+			'name' => 'background_image',
+			'type' => 'image',
+			'return_format' => 'id',
+			'instructions' => 'Use high quality images, recommended 1200x800px'
+		),
+		array(
+			'key' => 'field_hero_discount',
+			'label' => 'Discount Badge',
+			'name' => 'discount',
+			'type' => 'text'
+		),
+		array(
+			'key' => 'field_hero_gradient_start',
+			'label' => 'Gradient Start Color',
+			'name' => 'gradient_start',
+			'type' => 'color_picker',
+			'default_value' => '#FEF3E8'
+		),
+		array(
+			'key' => 'field_hero_gradient_end',
+			'label' => 'Gradient End Color',
+			'name' => 'gradient_end',
+			'type' => 'color_picker',
+			'default_value' => '#F4821F'
+		),
+		array(
+			'key' => 'field_promo_banners',
+			'label' => 'Promo Cards',
+			'name' => 'promo_banners',
 			'type' => 'repeater',
-			'layout' => 'block',
-			'button_label' => 'Add Slide',
+			'instructions' => 'Add up to 2-3 promo cards for offers',
+			'button_label' => 'Add Promo Card',
 			'sub_fields' => array(
-				array('key' => 'hero_badge', 'label' => 'Top Badge', 'name' => 'badge', 'type' => 'text'),
-                array('key' => 'hero_badge_color', 'label' => 'Badge Color Class', 'name' => 'badge_color', 'type' => 'text', 'default_value' => 'bg-brand-orange'),
-				array('key' => 'hero_title', 'label' => 'Main Heading', 'name' => 'title', 'type' => 'textarea', 'new_lines' => 'br'),
-				array('key' => 'hero_copy', 'label' => 'Subtext', 'name' => 'copy', 'type' => 'textarea'),
-				array('key' => 'hero_p_btn', 'label' => 'Primary Button Text', 'name' => 'primary_btn', 'type' => 'text', 'default_value' => 'Shop Now >'),
-				array('key' => 'hero_p_link', 'label' => 'Primary Button Link', 'name' => 'primary_link', 'type' => 'url'),
-				array('key' => 'hero_image', 'label' => 'Image (Bowl)', 'name' => 'image', 'type' => 'image', 'return_format' => 'url'),
-				array('key' => 'hero_discount', 'label' => 'Discount Badge', 'name' => 'discount', 'type' => 'text'),
-                array('key' => 'hero_bg_gradient', 'label' => 'Background Gradient Logic', 'name' => 'bg_gradient', 'type' => 'text', 'default_value' => 'from-[#FEF3E8] to-[#F4821F] via-[#FEF3E8] via-45%'),
+				array('key' => 'promo_subtitle', 'label' => 'Subtitle', 'name' => 'subtitle', 'type' => 'text'),
+				array('key' => 'promo_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text'),
+				array('key' => 'promo_btn_text', 'label' => 'Button Text', 'name' => 'btn_text', 'type' => 'text'),
+				array('key' => 'promo_btn_link', 'label' => 'Button Link', 'name' => 'btn_link', 'type' => 'url'),
+				array('key' => 'promo_bg_color', 'label' => 'Background Color', 'name' => 'bg_color', 'type' => 'color_picker'),
+				array('key' => 'promo_circle_color', 'label' => 'Circle Color', 'name' => 'circle_color', 'type' => 'color_picker'),
+				array('key' => 'promo_tag', 'label' => 'Tag', 'name' => 'tag', 'type' => 'text'),
+				array('key' => 'promo_image', 'label' => 'Background Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'id'),
 			),
 		),
         array(

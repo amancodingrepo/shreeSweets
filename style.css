@@ -101,32 +101,6 @@ img {
   }
 }
 
-/* Animations - Exact match from React */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-slide-in-up {
-  animation: slideInUp 0.6s ease-out;
-}
 
 @keyframes shimmer {
   0% { background-position: -1000px 0; }
@@ -215,11 +189,6 @@ img {
 .nav-link.current_page_item {
     color: var(--brand-orange);
     border-bottom-color: var(--brand-orange);
-}
-
-.nav-link:hover {
-  color: var(--brand-orange);
-  border-bottom-color: var(--brand-orange);
 }
 
 /* Form Styles */
@@ -370,12 +339,12 @@ img {
 
 /* ── SECTION SPACING ── */
 .home-section {
-  padding: 80px 0;
+  padding: 32px 0;
 }
 
 @media (max-width: 768px) {
   .home-section {
-    padding: 44px 0;
+    padding: 24px 0;
   }
   .section-heading {
     font-size: 24px;
@@ -444,80 +413,6 @@ img {
   letter-spacing: 0.05em;
 }
 
-.shop-filter-label {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 0;
-  font-size: 0.875rem;
-  color: var(--brand-ink2);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border-radius: 0.375rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.shop-filter-label:hover {
-  color: var(--brand-orange);
-  background-color: rgba(244, 130, 31, 0.05);
-}
-
-.shop-filter-checkbox {
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--brand-line);
-  border-radius: 4px;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background-color: white;
-}
-
-.shop-filter-checkbox:checked {
-  background-color: var(--brand-orange);
-  border-color: var(--brand-orange);
-}
-
-.shop-filter-checkbox:checked::after {
-  content: '✓';
-  position: absolute;
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 1;
-}
-
-.shop-filter-checkbox::after {
-  content: '✓';
-  position: absolute;
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.shop-filter-count {
-  margin-left: auto;
-  font-size: 0.8125rem;
-  color: var(--brand-ink3);
-  background-color: #f9fafb;
-  padding: 0.125rem 0.375rem;
-  border-radius: 0.25rem;
-  font-weight: 500;
-}
-
-.shop-filter:first-child {
-  padding-top: 0;
-}
 
 .shop-filter-label {
   display: flex;
@@ -676,56 +571,6 @@ img {
   outline: none;
   border-color: var(--brand-orange);
   box-shadow: 0 0 0 3px rgba(244, 130, 31, 0.1);
-}
-
-.shop-sort-select:hover {
-  border-color: #9ca3af;
-}
-
-/* Pagination */
-.shop-pagination {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  align-items: center;
-  margin-top: 3rem;
-}
-
-.shop-pagination-button {
-  min-width: 40px;
-  height: 40px;
-  padding: 0 0.75rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  background-color: white;
-  color: #6b7280;
-}
-
-.shop-pagination-button:hover {
-  background-color: var(--brand-orange);
-  color: white;
-  border-color: var(--brand-orange);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(244, 130, 31, 0.2);
-}
-
-.shop-pagination-button.active {
-  background-color: var(--brand-orange);
-  color: white;
-  border-color: var(--brand-orange);
-  font-weight: 600;
-}
-
-.shop-sort-select:focus {
-  outline: none;
-  border-color: var(--brand-orange);
 }
 
 /* Pagination */
@@ -1068,7 +913,7 @@ img {
 .h-64 { height: 16rem; }
 .h-96 { height: 24rem; }
 .max-w-xl { max-width: 36rem; }
-.gap-4\.5 { gap: 1.125rem; }
+/* gap-4.5 is defined in tailwind.config.js under extend.spacing */
 
 /* Utilities */
 .no-scrollbar::-webkit-scrollbar {
@@ -1082,7 +927,7 @@ img {
 /* Force Header fixed if sticky fails */
 #masthead {
   width: 100%;
-  z-index: 100;
+  z-index: 50;
 }
 
 /* Ensure empty states look professional */
