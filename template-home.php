@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <!-- Delivery Strip -->
       <div class="bg-brand-ink text-white animate-slide-in-up" style="animation-delay: 0.4s; animation-fill-mode: both;">
-        <div class="max-w-full mx-auto px-5 md:px-10 py-5 md:py-4 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20 py-5 md:py-4 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-full bg-brand-orange/20 flex items-center justify-center shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F4821F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Dynamic Categories from Backend -->
     <section class="home-section">
-        <div class="max-w-full mx-auto px-5 md:px-10">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
             <div class="flex items-end justify-between mb-7 md:mb-10 gap-4">
                 <div>
                     <span class="section-label">Browse by category</span>
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ) );
 
                 if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) : ?>
-                    <div class="flex w-full justify-start lg:justify-center gap-4 sm:gap-6 md:gap-10 overflow-x-auto pb-6 no-scrollbar flex-nowrap items-start snap-x">
+                    <div class="flex w-full justify-between gap-6 sm:gap-8 md:gap-10 lg:gap-16 overflow-x-auto pb-6 no-scrollbar flex-nowrap items-start snap-x">
                         <?php
                         $gradients = ['from-[#FDEBD0] to-[#F0A05A]', 'from-[#F9EBEA] to-[#C0786A]', 'from-[#EBF5FB] to-[#6AAED6]', 'from-[#E9F7EF] to-[#6AAD8A]', 'from-[#FDF9E3] to-[#D4A860]', 'from-[#F5EEF8] to-[#A070B0]'];
                         $i = 0;
@@ -324,15 +324,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Bestsellers Section -->
     <section class="home-section" style="padding-top: 0;">
-        <div class="max-w-full mx-auto px-4 md:px-10">
-            <div class="flex items-end justify-between mb-7 md:mb-10 gap-4 px-1 md:px-0">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
+            <div class="flex items-end justify-between mb-7 md:mb-10 gap-4">
                     <div>
                         <span class="section-label">Most loved this week</span>
                         <h2 class="section-heading">
                             <?php echo esc_html((function_exists('get_field') && get_field('best_heading')) ? get_field('best_heading') : 'Bestsellers'); ?>
                         </h2>
                     </div>
-                <a href="<?php echo esc_url( home_url( '/shop/' ) ); ?>" class="text-[13px] font-medium text-[#555] hover:text-brand-orange transition-colors">All products &rarr;</a>
+                <a href="<?php echo esc_url( home_url( '/shop/' ) ); ?>" class="inline-flex items-center gap-1 text-[13px] font-semibold text-brand-orange border border-brand-orange rounded-full px-5 py-2 hover:bg-brand-orange hover:text-white transition-all">All <?php echo function_exists('wp_count_posts') ? wp_count_posts('product')->publish : '89'; ?> products &rarr;</a>
             </div>
 
             <?php
@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Promo Banners -->
     <section class="mt-8 md:mt-[52px]">
-        <div class="max-w-full mx-auto px-5 md:px-10">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                 <?php 
                 $has_promos = function_exists('have_rows') && have_rows('promo_banners');
@@ -408,8 +408,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- New Arrivals Section -->
     <section class="home-section" style="padding-top: 0;">
-        <div class="max-w-full mx-auto px-4 md:px-10">
-            <div class="flex items-end justify-between mb-7 md:mb-10 gap-4 px-1 md:px-0">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
+            <div class="flex items-end justify-between mb-7 md:mb-10 gap-4">
                     <div>
                         <span class="section-label">Just added</span>
                         <h2 class="section-heading">
@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Reviews Section -->
     <section class="home-section bg-brand-bg2">
-        <div class="max-w-full mx-auto px-5 md:px-10">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-7 md:mb-10 gap-3 md:gap-4">
                 <div>
                     <span class="section-label">Customer reviews</span>

@@ -7,8 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-    <footer class="bg-brand-ink text-white mt-14 pt-16 pb-6 px-10">
-      <div class="max-w-full mx-auto pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 px-5 md:px-10">
+    <footer class="bg-brand-ink text-white mt-14 pt-16 pb-6 px-6 md:px-10 lg:px-16">
+      <div class="max-w-full mx-auto pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
         
         <div class="lg:col-span-1">
           <div class="font-serif text-2xl font-bold mb-3 text-white">Shree Sweets</div>
@@ -73,7 +73,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
 
       </div>
-      <div class="max-w-full mx-auto flex flex-col md:flex-row justify-between items-center pt-8 pb-2 text-[11.5px] text-white/40 gap-4 px-5 md:px-10 border-t border-white/10 mt-8">
+      <div class="max-w-full mx-auto flex flex-col md:flex-row justify-between items-center pt-8 pb-2 text-[11.5px] text-white/40 gap-4 border-t border-white/10 mt-8">
         <span>© 2026 Shree Sweets, Indore. All rights reserved.</span>
           <div class="flex items-center gap-2">
             <!-- Visa -->

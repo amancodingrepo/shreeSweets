@@ -46,7 +46,7 @@ function openCartDrawer() {
 </div>
 
 <header id="masthead" class="bg-white border-b border-brand-line sticky top-0 z-50 shadow-[0_1px_8px_rgba(0,0,0,0.05)]">
-    <div class="max-w-full mx-auto px-4 md:px-10 h-[72px] md:h-auto py-0 md:py-5 flex items-center justify-between md:justify-start w-full gap-4 md:gap-8">
+    <div class="max-w-full mx-auto px-4 md:px-10 lg:px-16 h-[72px] md:h-auto py-0 md:py-5 flex items-center justify-between md:justify-start w-full gap-4 md:gap-8">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center gap-3 shrink-0">
             <?php
             $logo_url = get_template_directory_uri() . '/assets/images/logo.jpg';
@@ -122,7 +122,7 @@ function openCartDrawer() {
 
 <!-- Navstrip -->
 <div class="hidden md:block bg-white border-b border-brand-line">
-    <div class="max-w-full mx-auto px-10 flex items-center gap-6 overflow-x-auto no-scrollbar">
+    <div class="max-w-full mx-auto px-10 lg:px-16 flex items-center gap-6 overflow-x-auto no-scrollbar">
         <?php
         wp_nav_menu( array(
             'theme_location' => 'primary',
