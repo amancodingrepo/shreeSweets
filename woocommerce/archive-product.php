@@ -119,12 +119,21 @@ form.woocommerce-ordering {
 </style>
 
 <div class="min-h-screen bg-white">
-    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-16 py-6 lg:py-10">
+        
+        <!-- Mobile Filter Toggle -->
+        <div class="lg:hidden mb-4">
+            <button onclick="document.getElementById('mobile-filters').classList.toggle('hidden')" 
+                    class="flex items-center gap-2 py-2.5 px-4 border border-brand-line rounded-lg text-[14px] font-medium text-[#333] hover:border-brand-orange transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                Filters
+            </button>
+        </div>
         
         <div class="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8 lg:gap-10">
 
             <!-- Sidebar Filters -->
-            <aside class="hidden lg:block">
+            <aside id="mobile-filters" class="hidden lg:block bg-white lg:bg-transparent p-5 lg:p-0 rounded-xl lg:rounded-none border lg:border-0 border-brand-line mb-4 lg:mb-0">
                 <div class="sticky top-24">
                     
                     <!-- Category Filter -->

@@ -93,7 +93,7 @@ $status = $status_types[$product_id % 4];
         <?php endif; ?>
     </a>
 
-    <div class="p-4 sm:p-5 flex flex-col flex-1 gap-2">
+    <div class="p-4 flex flex-col flex-1 gap-1.5">
 
         <!-- Pure Veg Badge -->
         <?php if ( $is_pure_veg ) : ?>

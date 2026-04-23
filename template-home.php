@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <!-- Delivery Strip -->
       <div class="bg-brand-ink text-white animate-slide-in-up" style="animation-delay: 0.4s; animation-fill-mode: both;">
-        <div class="max-w-full mx-auto px-5 md:px-10 py-6 md:py-5 grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-8">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20 py-5 md:py-4 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-full bg-brand-orange/20 flex items-center justify-center shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F4821F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Dynamic Categories from Backend -->
     <section class="home-section">
-        <div class="max-w-full mx-auto px-5 md:px-10">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
             <div class="flex items-end justify-between mb-7 md:mb-10 gap-4">
                 <div>
                     <span class="section-label">Browse by category</span>
@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Reviews Section -->
     <section class="home-section bg-brand-bg2">
-        <div class="max-w-full mx-auto px-5 md:px-10">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-7 md:mb-10 gap-3 md:gap-4">
                 <div>
                     <span class="section-label">Customer reviews</span>
