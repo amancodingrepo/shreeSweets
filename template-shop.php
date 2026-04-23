@@ -186,7 +186,15 @@ get_header();
                 $args = array(
                     'post_type' => 'product',
                     'post_status' => 'publish',
-                    'posts_per_page' => -1, // Get all for total count
+                    'posts_per_page' => -1,
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => 'product_visibility',
+                            'field'    => 'name',
+                            'terms'    => array('exclude-from-catalog', 'exclude-from-search'),
+                            'operator' => 'NOT IN',
+                        ),
+                    ),
                 );
                 $temp_query = new WP_Query($args);
                 $total = $temp_query->found_posts;
@@ -292,6 +300,14 @@ get_header();
                         'post_status' => 'publish',
                         'posts_per_page' => get_option('posts_per_page', 12),
                         'paged' => $paged,
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'product_visibility',
+                                'field'    => 'name',
+                                'terms'    => array('exclude-from-catalog', 'exclude-from-search'),
+                                'operator' => 'NOT IN',
+                            ),
+                        ),
                     );
                     $products_query = new WP_Query($args);
 

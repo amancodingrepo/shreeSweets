@@ -9,7 +9,10 @@ defined( 'ABSPATH' ) || exit;
 global $product;
 
 // Ensure product is valid
-if ( empty( $product ) || ! is_a( $product, 'WC_Product' ) || ! $product->is_visible() ) {
+if ( empty( $product ) || ! is_a( $product, 'WC_Product' ) ) {
+	return;
+}
+if ( ! $product->exists() ) {
 	return;
 }
 
