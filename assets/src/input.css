@@ -40,3 +40,61 @@
   visibility: visible !important;
   opacity: 1 !important;
 }
+
+/* ── Product Card Enhancements ── */
+.product-card .woocommerce-Price-amount {
+  font-weight: 700 !important;
+}
+
+.product-card del .woocommerce-Price-amount {
+  font-weight: 400 !important;
+}
+
+/* ── Single Product Page ── */
+.single-product-info-wrapper .woocommerce-Price-amount {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+}
+
+/* ── Category Section Full Width ── */
+.home-section .snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.home-section .snap-start {
+  scroll-snap-align: start;
+}
+
+/* ── Hide default WooCommerce elements on single product ── */
+.single-product .woocommerce-product-gallery {
+  display: none !important;
+}
+
+.single-product .summary .price {
+  display: none !important;
+}
+
+.single-product .summary .cart {
+  display: none !important;
+}
+
+.single-product .summary .product_title {
+  display: none !important;
+}
+
+.single-product .summary .woocommerce-product-rating {
+  display: none !important;
+}
+
+/* ── Quantity Input Styling ── */
+.quantity input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.quantity input[type="number"]::-webkit-inner-spin-button,
+.quantity input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

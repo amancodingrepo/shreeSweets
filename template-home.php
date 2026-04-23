@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <!-- Delivery Strip -->
       <div class="bg-brand-ink text-white animate-slide-in-up" style="animation-delay: 0.4s; animation-fill-mode: both;">
-        <div class="max-w-full mx-auto px-5 md:px-10 py-5 md:py-4 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        <div class="max-w-full mx-auto px-5 md:px-10 py-6 md:py-5 grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-8">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-full bg-brand-orange/20 flex items-center justify-center shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F4821F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ) );
 
                 if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) : ?>
-                    <div class="flex w-full justify-start lg:justify-center gap-4 sm:gap-6 md:gap-10 overflow-x-auto pb-6 no-scrollbar flex-nowrap items-start snap-x">
+                    <div class="flex w-full justify-between gap-6 sm:gap-8 md:gap-10 lg:gap-16 overflow-x-auto pb-6 no-scrollbar flex-nowrap items-start snap-x">
                         <?php
                         $gradients = ['from-[#FDEBD0] to-[#F0A05A]', 'from-[#F9EBEA] to-[#C0786A]', 'from-[#EBF5FB] to-[#6AAED6]', 'from-[#E9F7EF] to-[#6AAD8A]', 'from-[#FDF9E3] to-[#D4A860]', 'from-[#F5EEF8] to-[#A070B0]'];
                         $i = 0;
