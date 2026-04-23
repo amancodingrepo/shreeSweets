@@ -24,7 +24,7 @@ function handleTrackOrder(event) {
 </script>
 
 <main id="primary" class="site-main">
-    <div class="max-w-4xl mx-auto px-7 py-12">
+    <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20 py-12">
         <div class="text-center mb-8">
             <div class="text-[11px] font-bold tracking-[0.15em] uppercase text-brand-orange mb-1.5">Order tracking</div>
             <h1 class="font-serif text-[clamp(30px,4vw,48px)] font-bold text-brand-ink leading-[1.15]">Track Your <em class="italic text-brand-orange">Order</em></h1>

@@ -119,7 +119,7 @@ form.woocommerce-ordering {
 </style>
 
 <div class="min-h-screen bg-white">
-    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-16 py-6 lg:py-10">
+    <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20 py-6 lg:py-10">
         
         <!-- Mobile Filter Toggle -->
         <div class="lg:hidden mb-4">
@@ -134,7 +134,7 @@ form.woocommerce-ordering {
 
             <!-- Sidebar Filters -->
             <aside id="mobile-filters" class="hidden lg:block bg-white lg:bg-transparent p-5 lg:p-0 rounded-xl lg:rounded-none border lg:border-0 border-brand-line mb-4 lg:mb-0">
-                <div class="sticky top-24">
+                <div class="sticky top-[140px]">
                     
                     <!-- Category Filter -->
                     <div class="mb-8">

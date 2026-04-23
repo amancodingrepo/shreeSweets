@@ -252,7 +252,7 @@ $content_map = [
 $page_data = $content_map[$current_slug] ?? null;
 ?>
 
-<main id="primary" class="animate-in fade-in duration-500 max-w-4xl mx-auto px-7 py-12 pb-20 min-h-[60vh]">
+<main id="primary" class="animate-in fade-in duration-500 max-w-full mx-auto px-6 md:px-16 lg:px-20 py-12 pb-20 min-h-[60vh]">
     <?php
     while ( have_posts() ) :
         the_post();

@@ -7,7 +7,7 @@ get_header();
 ?>
 
 <main id="primary" class="site-main">
-    <div class="max-w-6xl mx-auto px-7 py-12">
+    <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20 py-12">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
             <div>
                 <div class="text-[11px] font-bold tracking-[0.15em] uppercase text-brand-orange mb-1.5">Our story</div>

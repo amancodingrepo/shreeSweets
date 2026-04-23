@@ -1,9 +1,12 @@
 /*
 Theme Name: Shree Sweets
-Description: Custom WordPress theme converted from the Shree Sweets React application using Tailwind CSS and WooCommerce.
-Version: 1.0.1
+Description: Premium WooCommerce theme for Shree Sweets Indore, featuring a high-performance Tailwind CSS architecture and Shopify-inspired UX.
+Version: 1.1.0
 Author: Simbolo
 Text Domain: shreesweets
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: e-commerce, woocommerce, tailwind, premium, clean, responsive-layout
 */
 
 /* CSS Custom Properties - Brand Colors */
@@ -176,7 +179,7 @@ img {
   padding: 0.75rem 1.5rem;
   border: 2px solid var(--brand-ink);
   color: var(--brand-ink);
-  border-radius: 9999px;
+  border-radius: 8px;
   font-weight: 600;
   transition: all 0.2s ease;
   background-color: transparent;
@@ -367,7 +370,7 @@ img {
 
 /* ── SECTION SPACING ── */
 .home-section {
-  padding: 100px 0;
+  padding: 80px 0;
 }
 
 @media (max-width: 768px) {

@@ -9,7 +9,7 @@ get_header();
 
 
 <div class="min-h-screen bg-[#fafafa]">
-    <div class="max-w-full mx-auto px-5 md:px-10 py-10 md:py-16 pb-24">
+    <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20 py-10 md:py-16 pb-24">
 
         <!-- Breadcrumbs -->
         <nav class="flex text-[12px] text-[#888] mb-10" aria-label="Breadcrumb">

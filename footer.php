@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-    <footer class="bg-brand-ink text-white mt-14 pt-16 pb-6 px-6 md:px-10 lg:px-16">
+    <footer class="bg-brand-ink text-white mt-14 pt-16 pb-6 px-6 md:px-16 lg:px-20">
       <div class="max-w-full mx-auto pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
         
         <div class="lg:col-span-1">

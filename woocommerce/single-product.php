@@ -41,7 +41,7 @@ get_header( 'shop' ); ?>
     }
     ?>
 
-    <div id="product-<?php the_ID(); ?>" <?php wc_product_class( 'animate-in fade-in duration-500 max-w-7xl mx-auto px-5 md:px-7 py-6 pb-20', $product ); ?>>
+    <div id="product-<?php the_ID(); ?>" <?php wc_product_class( 'animate-in fade-in duration-500 max-w-full mx-auto px-6 md:px-16 lg:px-20 py-6 pb-20', $product ); ?>>
         
         <!-- Breadcrumbs -->
         <div class="text-xs text-brand-ink3 mb-6">

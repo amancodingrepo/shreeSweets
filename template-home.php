@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- Dynamic Slide -->
             <div class="min-w-full relative h-full min-h-[280px] md:min-h-[380px] flex items-center overflow-hidden shrink-0 py-8 md:py-12">
                 <div class="absolute inset-0 bg-gradient-to-r <?php echo esc_attr($bg_gradient); ?>"></div>
-                <div class="relative z-10 max-w-full mx-auto px-5 md:px-10 w-full flex items-center justify-between">
+                <div class="relative z-10 max-w-full mx-auto px-6 md:px-16 lg:px-20 w-full flex items-center justify-between">
                     <div>
                         <?php if(get_sub_field('badge')): ?>
                         <div class="inline-block text-white text-[10px] font-bold tracking-[0.12em] uppercase py-1.5 px-3 rounded mb-3.5 <?php echo esc_attr($badge_color); ?>">
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- Slide 1 -->
             <div class="min-w-full relative h-full min-h-[280px] md:min-h-[380px] flex items-center overflow-hidden shrink-0 py-8 md:py-12">
                 <div class="absolute inset-0 bg-gradient-to-r from-[#FEF3E8] to-[#F4821F] via-[#FEF3E8] via-45%"></div>
-                <div class="relative z-10 max-w-full mx-auto px-5 md:px-10 w-full flex items-center justify-between">
+                <div class="relative z-10 max-w-full mx-auto px-6 md:px-16 lg:px-20 w-full flex items-center justify-between">
                     <div>
                         <div class="inline-block text-white text-[10px] font-bold tracking-[0.12em] uppercase py-1.5 px-3 rounded mb-3.5 bg-brand-orange">
                             Diwali Special · Limited Edition
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- Slide 2 -->
             <div class="min-w-full relative h-full min-h-[280px] md:min-h-[380px] flex items-center overflow-hidden shrink-0 py-8 md:py-12">
                 <div class="absolute inset-0 bg-gradient-to-r from-[#F2EBE0] to-[#C0392B] via-[#F2EBE0] via-45%"></div>
-                <div class="relative z-10 max-w-full mx-auto px-5 md:px-10 w-full flex items-center justify-between">
+                <div class="relative z-10 max-w-full mx-auto px-6 md:px-16 lg:px-20 w-full flex items-center justify-between">
                     <div>
                         <div class="inline-block text-white text-[10px] font-bold tracking-[0.12em] uppercase py-1.5 px-3 rounded mb-3.5 bg-brand-red">
                             Festive Gift Packs · Now Available
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- Slide 3 -->
             <div class="min-w-full relative h-full min-h-[280px] md:min-h-[380px] flex items-center overflow-hidden shrink-0 py-8 md:py-12">
                 <div class="absolute inset-0 bg-gradient-to-r from-[#F8F3EC] to-[#27AE60] via-[#F8F3EC] via-45%"></div>
-                <div class="relative z-10 max-w-full mx-auto px-5 md:px-10 w-full flex items-center justify-between">
+                <div class="relative z-10 max-w-full mx-auto px-6 md:px-16 lg:px-20 w-full flex items-center justify-between">
                     <div>
                         <div class="inline-block text-white text-[10px] font-bold tracking-[0.12em] uppercase py-1.5 px-3 rounded mb-3.5 bg-brand-green">
                             New Arrival · Poha Chiwda
@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </section>
 
     <!-- Bestsellers Section -->
-    <section class="home-section" style="padding-top: 0;">
+    <section class="home-section">
         <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
             <div class="flex items-end justify-between mb-7 md:mb-10 gap-4">
                     <div>
@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </section>
 
     <!-- Promo Banners -->
-    <section class="mt-8 md:mt-[52px]">
+    <section class="home-section">
         <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                 <?php 
@@ -407,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </section>
 
     <!-- New Arrivals Section -->
-    <section class="home-section" style="padding-top: 0;">
+    <section class="home-section">
         <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
             <div class="flex items-end justify-between mb-7 md:mb-10 gap-4">
                     <div>
@@ -442,59 +442,59 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Our Story Section (Dark Section) -->
     <?php $story = function_exists('get_field') ? get_field('our_story') : null; ?>
-    <section class="home-section bg-brand-ink text-white">
-        <div class="max-w-[1400px] mx-auto px-5 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+    <section class="home-section bg-brand-ink text-white overflow-hidden">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             
             <div>
-                <span class="section-label !text-brand-orange" style="color:#F4821F;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;">Our Story</span>
-                <h2 class="font-serif font-bold leading-[1.1] text-white mt-4 mb-6" style="font-size:clamp(36px,4vw,58px);">
-                    <?php echo wp_kses_post($story['title'] ?? 'From Sarafa Bazaar to<br><em class="text-brand-orange" style="color:#F4821F;font-style:italic;">your doorstep.</em>'); ?>
+                <span class="section-label">Our Story</span>
+                <h2 class="font-serif font-bold leading-[1.1] text-white mt-4 mb-6 text-[clamp(36px,4vw,58px)]">
+                    <?php echo wp_kses_post($story['title'] ?? 'From Sarafa Bazaar to<br><em class="text-brand-orange italic">your doorstep.</em>'); ?>
                 </h2>
-                <p style="font-size:15px;line-height:1.8;color:rgba(255,255,255,0.55);margin-bottom:2rem;max-width:500px;">
+                <p class="text-[15px] line-height-relaxed text-white/55 mb-8 max-w-[500px]">
                     <?php echo esc_html($story['copy'] ?? 'In 1989, Ramesh Bhai started frying sev in a tiny shop on Sarafa Bazaar, Indore. He ground besan fresh every morning, roasted masalas in-house, and tested every batch himself. Three generations later, the recipes are the same — only the packaging has changed.'); ?>
                 </p>
-                <a href="<?php echo esc_url( home_url('/about-us/') ); ?>" style="color:#F4821F;font-weight:600;font-size:14px;text-decoration:none;">
+                <a href="<?php echo esc_url( home_url('/about-us/') ); ?>" class="text-brand-orange font-semibold text-sm hover:underline">
                     Read our story →
                 </a>
 
-                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:2.5rem 0;">
+                <hr class="border-t border-white/10 my-10">
 
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem 4rem;">
+                <div class="grid grid-cols-2 gap-x-12 gap-y-8">
                     <?php if(!empty($story['stats'])): ?>
                         <?php foreach($story['stats'] as $stat): ?>
                         <div>
-                            <b style="font-size:48px;font-weight:800;color:#F4821F;display:block;line-height:1;margin-bottom:6px;"><?php echo esc_html($stat['value']); ?></b>
-                            <span style="font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.2em;text-transform:uppercase;font-weight:700;"><?php echo esc_html($stat['label']); ?></span>
+                            <b class="text-4xl md:text-5xl font-extrabold text-brand-orange block leading-none mb-2"><?php echo esc_html($stat['value']); ?></b>
+                            <span class="text-[10px] text-white/35 tracking-[0.2em] uppercase font-bold"><?php echo esc_html($stat['label']); ?></span>
                         </div>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <div>
-                            <b style="font-size:48px;font-weight:800;color:#F4821F;display:block;line-height:1;margin-bottom:6px;">37</b>
-                            <span style="font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.2em;text-transform:uppercase;font-weight:700;">Years of tradition</span>
+                            <b class="text-4xl md:text-5xl font-extrabold text-brand-orange block leading-none mb-2">37</b>
+                            <span class="text-[10px] text-white/35 tracking-[0.2em] uppercase font-bold">Years of tradition</span>
                         </div>
                         <div>
-                            <b style="font-size:48px;font-weight:800;color:#F4821F;display:block;line-height:1;margin-bottom:6px;">12k+</b>
-                            <span style="font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.2em;text-transform:uppercase;font-weight:700;">Families served</span>
+                            <b class="text-4xl md:text-5xl font-extrabold text-brand-orange block leading-none mb-2">12k+</b>
+                            <span class="text-[10px] text-white/35 tracking-[0.2em] uppercase font-bold">Families served</span>
                         </div>
                         <div>
-                            <b style="font-size:48px;font-weight:800;color:#F4821F;display:block;line-height:1;margin-bottom:6px;">148kg</b>
-                            <span style="font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.2em;text-transform:uppercase;font-weight:700;">Fried every morning</span>
+                            <b class="text-4xl md:text-5xl font-extrabold text-brand-orange block leading-none mb-2">148kg</b>
+                            <span class="text-[10px] text-white/35 tracking-[0.2em] uppercase font-bold">Fried every morning</span>
                         </div>
                         <div>
-                            <b style="font-size:48px;font-weight:800;color:#F4821F;display:block;line-height:1;margin-bottom:6px;">4.9★</b>
-                            <span style="font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.2em;text-transform:uppercase;font-weight:700;">Average rating</span>
+                            <b class="text-4xl md:text-5xl font-extrabold text-brand-orange block leading-none mb-2">4.9★</b>
+                            <span class="text-[10px] text-white/35 tracking-[0.2em] uppercase font-bold">Average rating</span>
                         </div>
                     <?php endif; ?>
                 </div>
             </div>
 
             <!-- Right: Image -->
-            <div style="border-radius:24px;overflow:hidden;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);min-height:480px;display:flex;align-items:center;justify-content:center;position:relative;">
+            <div class="rounded-3xl overflow-hidden bg-white/5 border border-white/10 min-h-[400px] md:min-h-[520px] flex items-center justify-center relative shadow-2xl">
                 <?php 
                 $image_url = !empty($story['image']) ? $story['image'] : get_template_directory_uri() . '/assets/images/kitchen.png';
                 ?>
-                <img src="<?php echo esc_url($image_url); ?>" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" alt="Our Kitchen">
-                <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(26,26,26,0.6) 0%, transparent 60%);pointer-events:none;"></div>
+                <img src="<?php echo esc_url($image_url); ?>" class="w-full h-full object-cover absolute inset-0" alt="Our Kitchen">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-ink/70 via-transparent to-transparent pointer-events-none"></div>
             </div>
 
         </div>
