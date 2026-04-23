@@ -1,77 +1,59 @@
 <?php
 /**
  * The template for displaying product content within loops
- *
- * This template can be overridden by copying it to yourtheme/woocommerce/content-product.php.
- * 
- * @see     https://woo.com/document/template-structure/
- * @package WooCommerce\Templates
- * @version 3.6.0
+ * (Converted from React ProductCard component)
  */
 
 defined( 'ABSPATH' ) || exit;
 
 global $product;
 
-// Ensure visibility and validity.
+// Ensure product is valid
 if ( empty( $product ) || ! is_a( $product, 'WC_Product' ) || ! $product->is_visible() ) {
 	return;
 }
 
-$discountRaw = 0;
-if ( $product->is_on_sale() && $product->get_regular_price() ) {
-    $discountRaw = round( ( ( $product->get_regular_price() - $product->get_sale_price() ) / $product->get_regular_price() ) * 100 );
-}
-
-// Check for Pure Veg attribute or tag
-$is_pure_veg = true; // Default to true for this sweets shop
-$product_tags = get_the_terms( $product->get_id(), 'product_tag' );
-if ( $product_tags && ! is_wp_error( $product_tags ) ) {
-    foreach ( $product_tags as $tag ) {
-        if ( strtolower( $tag->name ) === 'non-veg' ) {
-            $is_pure_veg = false;
-            break;
-        }
-    }
-}
-
-// Get weight variations if available
-$weight_options = array();
-if ( $product->is_type( 'variable' ) ) {
-    $variations = $product->get_available_variations();
-    foreach ( $variations as $variation ) {
-        foreach ( $variation['attributes'] as $attr_name => $attr_value ) {
-            if ( stripos( $attr_name, 'weight' ) !== false || stripos( $attr_name, 'size' ) !== false || stripos( $attr_name, 'pack' ) !== false ) {
-                $weight_options[] = $attr_value;
-            }
-        }
-    }
-    $weight_options = array_unique( $weight_options );
-}
-
-// Default weight options for simple products
-if ( empty( $weight_options ) && $product->get_weight() ) {
-    $weight_options[] = $product->get_weight() . 'g';
-}
-
-$minimal = false;
-
-// Determine badge type based on product ID for variety
 $product_id = $product->get_id();
-$badge_types = array('bestseller', 'save', 'bestseller', 'new_arrival');
-$badge_type = $badge_types[$product_id % 4];
 
-// Determine status indicator for variety
-$status_types = array(
-    array('text' => '%d bought in last hour', 'color' => 'green', 'dynamic' => (($product_id * 7) % 17) + 8),
-    array('text' => 'Fresh batch today', 'color' => 'green'),
-    array('text' => 'Restocked today', 'color' => 'green'),
-    array('text' => 'Just launched', 'color' => 'green'),
-);
+// Badge logic
+$badge_type = '';
+if ( $product->is_on_sale() ) {
+    $badge_type = 'save';
+} elseif ( $product->is_featured() ) {
+    $badge_type = 'bestseller';
+} elseif ( ( time() - strtotime( $product->get_date_created() ) ) < ( 30 * 24 * 3600 ) ) {
+    $badge_type = 'new_arrival';
+}
+
+// Discount calculation
+$regular_price = (float) $product->get_regular_price();
+$sale_price    = (float) $product->get_sale_price();
+$discountRaw   = ( $regular_price > 0 && $sale_price > 0 ) ? round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 ) : 0;
+
+// Attributes
+$is_pure_veg    = true; // Static as per React source
+$weight_options = array(); // Will be empty unless we fetch variations
+if ( $product->is_type( 'variable' ) ) {
+    $variations = $product->get_variation_attributes();
+    if ( isset( $variations['weight'] ) ) {
+        $weight_options = $variations['weight'];
+    }
+}
+
+// Minimal mode for specific sections
+$minimal = isset( $args['minimal'] ) ? $args['minimal'] : false;
+
+// Mock status as per React
+$status_types = [
+    ['text' => 'Fresh batch today', 'color' => 'green'],
+    ['text' => 'Only %d left in stock', 'color' => 'orange', 'dynamic' => 5],
+    ['text' => 'Bestseller this week', 'color' => 'green'],
+    ['text' => 'Just launched', 'color' => 'green']
+];
 $status = $status_types[$product_id % 4];
 ?>
 
-<div <?php wc_product_class( 'product-card bg-white border-[1.5px] border-brand-line rounded-xl overflow-hidden transition-all duration-200 flex flex-col relative hover:border-brand-orange hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 group', $product ); ?>>
+<li <?php wc_product_class( 'product-card bg-white border-[1.5px] border-brand-line rounded-xl overflow-hidden transition-all duration-200 flex flex-col relative hover:border-brand-orange hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 group', $product ); ?>>
     
     <a href="<?php the_permalink(); ?>" class="aspect-square bg-brand-bg2 relative overflow-hidden flex items-center justify-center">
         
@@ -127,7 +109,7 @@ $status = $status_types[$product_id % 4];
             <span class="text-[11px] text-[#999]">(<?php echo esc_html( $product->get_review_count() ?: '423' ); ?>)</span>
         </div>
 
-        <!-- Weight Variants -->
+        <!-- Weight Variations -->
         <?php if ( ! empty( $weight_options ) ) : ?>
         <div class="flex items-center gap-2 flex-wrap mt-1">
             <?php $is_first = true; foreach ( $weight_options as $option ) : ?>
@@ -190,4 +172,5 @@ $status = $status_types[$product_id % 4];
         </div>
 
     </div>
-</div>
+
+</li>

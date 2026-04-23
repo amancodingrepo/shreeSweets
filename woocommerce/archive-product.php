@@ -73,7 +73,21 @@ form.woocommerce-ordering {
     display: grid !important;
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     gap: 24px !important;
+    list-style: none !important;
 }
+
+/* Kill 'ghost' cells caused by pseudo-elements in grid */
+.products::before,
+.products::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* Kill any direct child that isn't an <li> (scripts, styles, inputs, etc.) */
+ul.products > *:not(li) {
+    display: none !important;
+}
+
 @media (max-width: 1024px) {
     .products {
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
