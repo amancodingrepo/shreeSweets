@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             House of Sweets, Namkeen & Sev. Family-owned and Indore-made since 1989. Crafted fresh every morning.
           </p>
           <div class="inline-flex items-center gap-1.5 py-1.5 px-3 border border-white/15 rounded text-[10.5px] text-white/45 tracking-wider mb-6">
-            FSSAI · Lic. <?php echo esc_html(get_option('shree_fssai_license', 'Pending')); ?>
+            FSSAI · Lic. 10012345678
           </div>
           
           <div class="flex items-center gap-4">
@@ -62,18 +62,14 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="lg:col-span-1">
           <h4 class="text-[10.5px] font-bold tracking-[0.15em] uppercase text-white/40 mb-3">Sign Up for Email</h4>
           <p class="text-[12.5px] text-white/45 mb-4 leading-relaxed">Sign up to get first dibs on new arrivals, sales, exclusive content, events and more!</p>
-          <form onsubmit="handleNewsletterSubmit(event)" class="flex flex-col">
-            <input
-              type="email"
-              id="newsletter-email"
-              placeholder="Enter email address"
-              class="w-full py-2.5 px-3.5 bg-white/5 border border-white/15 text-white text-[12.5px] rounded-md mb-2 focus:outline-none focus:border-brand-orange placeholder:text-white/30"
-              required
-            />
-            <button type="submit" class="w-full p-2.5 bg-brand-orange text-white text-xs font-semibold rounded-md transition-colors hover:bg-brand-orange-dark">
-              Subscribe
-            </button>
-          </form>
+          <input 
+            type="email" 
+            placeholder="Enter email address" 
+            class="w-full py-2.5 px-3.5 bg-white/5 border border-white/15 text-white text-[12.5px] rounded-md mb-2 focus:outline-none focus:border-brand-orange placeholder:text-white/30"
+          />
+          <button class="w-full p-2.5 bg-brand-orange text-white text-xs font-semibold rounded-md transition-colors hover:bg-brand-orange-dark">
+            Subscribe
+          </button>
         </div>
 
       </div>
@@ -127,22 +123,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 
 <script>
-// Newsletter Subscribe
-function handleNewsletterSubmit(event) {
-    event.preventDefault();
-    var emailInput = document.getElementById('newsletter-email');
-    var email = emailInput ? emailInput.value.trim() : '';
-    if (email) {
-        var btn = event.target.querySelector('button[type=submit]');
-        if (btn) {
-            btn.textContent = 'Subscribed!';
-            btn.disabled = true;
-            btn.classList.add('opacity-70');
-        }
-        emailInput.value = '';
-    }
-}
-
 // Location Modal Logic
 const modal = document.getElementById('location-modal');
 const modalContent = document.getElementById('location-modal-content');

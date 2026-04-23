@@ -66,12 +66,23 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
             }
             #order_review > #payment {
                 grid-column: 1;
+                /* Move it up visually to appear right below customer details via negative margin or just normal flow */
+                margin-top: -30px; 
             }
             #order_review > .order-summary-sidebar {
                 grid-column: 2;
                 grid-row: 1;
+                /* By placing it in grid-row 1 natively, it sits on the right. 
+                   But we have to pull it up to align with customer details.
+                   Because #customer_details is outside, we apply negative margin: */
+                margin-top: calc(-100% - 250px); /* rough estimate, better to use flex instead of magic margin */
             }
         }
+        
+        /* Simpler CSS approach for wide screens without negative margins:
+           We will position the right sidebar absolutely within the form if native flow is hard,
+           OR we leave customer details outside, and just let payment follow below it, 
+           while sidebar floats right. */
     </style>
 
     <form name="checkout" method="post" class="checkout woocommerce-checkout relative lg:pr-[440px]" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">

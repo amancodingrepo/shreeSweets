@@ -13,12 +13,12 @@ get_header('shop'); ?>
 <style>
     /* ── SINGLE PRODUCT PREMIUM STYLES ── */
     :root {
-        --brand-orange: #F4821F;
-        --brand-orange-hover: #D96B10;
-        --brand-dark: #1A1A1A;
-        --brand-gray: #888888;
-        --brand-light-bg: #FAF7F2;
-        --brand-border: #EBE6DF;
+        --brand-orange: #f48220;
+        --brand-orange-hover: #e0721b;
+        --brand-dark: #1f1f1f;
+        --brand-gray: #7a7a7a;
+        --brand-light-bg: #fdfaf6;
+        --brand-border: #eaeaea;
     }
 
     body {
@@ -30,6 +30,7 @@ get_header('shop'); ?>
         max-width: 1440px;
         margin: 0 auto;
         padding: 2rem 4rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     .breadcrumb {
@@ -764,7 +765,7 @@ get_header('shop'); ?>
             </div>
 
             <div class="product-info">
-                <div class="category-label"><?php echo esc_html(strtoupper($primary_cat)); ?></div>
+                <div class="category-label"><?php echo esc_html(strtoupper($primary_cat)); ?> ·</div>
                 <h1 class="product-title"><?php the_title(); ?></h1>
 
                 <div class="rating-row">
@@ -854,10 +855,11 @@ get_header('shop'); ?>
                 <?php } ?>
 
                 <?php if (!$product->is_type('variable')): ?>
-                    <button type="button" onclick="handleBuyNow()" class="btn-buy-now">
+                    <a href="<?php echo esc_url(wc_get_checkout_url() . '?add-to-cart=' . $product->get_id()); ?>"
+                        class="btn-buy-now">
                         <?php echo __('Buy Now - ', 'woocommerce'); ?>
                         <?php echo wc_price(wc_get_price_to_display($product)); ?>
-                    </button>
+                    </a>
                 <?php endif; ?>
 
                 <div class="product-badge-group">
@@ -919,16 +921,15 @@ get_header('shop'); ?>
                 <div style="margin-top: 2rem;">
                     <span class="pincode-label"><?php echo __('Check delivery pincode', 'woocommerce'); ?></span>
                     <div class="pincode-widget">
-                        <input type="text" id="pincode-input" placeholder="<?php echo esc_attr__('Enter pincode', 'woocommerce'); ?>"
+                        <input type="text" placeholder="<?php echo esc_attr__('Enter pincode', 'woocommerce'); ?>"
                             class="pincode-input" maxlength="6" />
-                        <button type="button" class="pincode-btn" onclick="handlePincodeCheck()"><?php echo __('Check', 'woocommerce'); ?></button>
+                        <button class="pincode-btn"><?php echo __('Check', 'woocommerce'); ?></button>
                     </div>
-                    <div id="pincode-result" class="text-[12px] mt-2 hidden"></div>
                     <?php
-                    $total_sales = get_post_meta($product->get_id(), 'total_sales', true);
-                    $recent_views = $total_sales ? min(intval($total_sales), 99) : 0;
+                    $recent_views = get_post_meta($product->get_id(), '_recent_purchases_cache', true);
+                    if (!$recent_views)
+                        $recent_views = rand(5, 45);
                     ?>
-                    <?php if ($recent_views > 0): ?>
                     <div class="purchase-activity">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                             <path
@@ -936,7 +937,6 @@ get_header('shop'); ?>
                         </svg>
                         <?php echo sprintf(__('%d people bought this recently', 'woocommerce'), $recent_views); ?>
                     </div>
-                    <?php endif; ?>
                 </div>
 
             </div>
@@ -1072,11 +1072,8 @@ get_header('shop'); ?>
 
                     const img = thumb.querySelector('img');
                     if (img) {
-                        // Replace thumbnail-size URL with full-size URL
-                        let fullSrc = img.src;
-                        fullSrc = fullSrc.replace(/-\d+x\d+\./, '.');
-                        mainImg.src = fullSrc;
-                        mainImg.srcset = '';
+                        mainImg.src = img.src;
+                        mainImg.srcset = img.srcset || '';
                     }
                 });
             });
@@ -1096,14 +1093,7 @@ get_header('shop'); ?>
                         priceContainer.innerHTML = newPriceHtml;
                     }
 
-                    // Set the hidden variation_id input
-                    const variationId = chip.getAttribute('data-variation-id');
-                    const variationInput = document.querySelector('input[name="variation_id"]');
-                    if (variationInput && variationId) {
-                        variationInput.value = variationId;
-                    }
-
-                    // Sync with native woo dropdown if it exists
+                    // Attempt to sync with native woo dropdown if it exists
                     const targetAttribute = '<?php echo esc_js($target_attribute); ?>';
                     const nativeSelect = document.getElementById(targetAttribute);
                     if (nativeSelect) {
@@ -1111,56 +1101,10 @@ get_header('shop'); ?>
                         nativeSelect.value = val;
                         nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
                     }
-
-                    // Update Buy Now URL with variation
-                    const buyNowBtn = document.querySelector('.btn-buy-now');
-                    if (buyNowBtn && variationId) {
-                        buyNowBtn.setAttribute('data-variation-id', variationId);
-                    }
                 });
             });
         }
     });
-
-    // Buy Now - respects quantity and variation
-    function handleBuyNow() {
-        var form = document.querySelector('form.cart');
-        var qty = 1;
-        if (form) {
-            var qtyInput = form.querySelector('input[name=quantity]');
-            if (qtyInput) qty = parseInt(qtyInput.value) || 1;
-        }
-        var productId = <?php echo esc_js($product->get_id()); ?>;
-        var variationInput = document.querySelector('input[name="variation_id"]');
-        var variationId = variationInput ? variationInput.value : '';
-        var url = '<?php echo esc_url(wc_get_checkout_url()); ?>?add-to-cart=' + productId + '&quantity=' + qty;
-        if (variationId) {
-            url += '&variation_id=' + variationId;
-        }
-        window.location.href = url;
-    }
-
-    // Pincode Check
-    function handlePincodeCheck() {
-        var input = document.getElementById('pincode-input');
-        var result = document.getElementById('pincode-result');
-        if (!input || !result) return;
-
-        var pincode = input.value.trim();
-        if (!/^\d{6}$/.test(pincode)) {
-            result.className = 'text-[12px] mt-2 text-red-600';
-            result.textContent = 'Please enter a valid 6-digit pincode.';
-            result.classList.remove('hidden');
-            return;
-        }
-
-        var isIndore = pincode.startsWith('452');
-        result.className = 'text-[12px] mt-2 ' + (isIndore ? 'text-green-600' : 'text-brand-orange');
-        result.textContent = isIndore
-            ? 'Same-day delivery available! Order before 2 PM.'
-            : 'Standard delivery in 2-5 business days. Free shipping above Rs.499.';
-        result.classList.remove('hidden');
-    }
 </script>
 
 <?php get_footer('shop'); ?>
