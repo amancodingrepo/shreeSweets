@@ -10,3 +10,33 @@
     @apply font-serif;
   }
 }
+
+/* ── Fix category circle images ── */
+.home-section a .rounded-full {
+  width: 100px !important;
+  height: 100px !important;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .home-section a .rounded-full {
+    width: 130px !important;
+    height: 130px !important;
+  }
+}
+
+.home-section a .rounded-full img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  position: absolute;
+  inset: 0;
+}
+
+#shop-sidebar {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
