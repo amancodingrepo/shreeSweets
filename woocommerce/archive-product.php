@@ -265,6 +265,8 @@ ul.products > *:not(li) {
                     if ( wc_get_loop_prop( 'total' ) ) {
                         while ( have_posts() ) {
                             the_post();
+                            global $product;
+                            $product = wc_get_product( get_the_ID() );
                             do_action( 'woocommerce_shop_loop' );
                             wc_get_template_part( 'content', 'product' );
                         }

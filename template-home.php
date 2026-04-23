@@ -275,6 +275,8 @@ if (!function_exists('the_row')) {
                     foreach ($bestsellers as $product_obj) {
                         $post_object = get_post($product_obj->get_id());
                         setup_postdata($GLOBALS['post'] =& $post_object);
+                        global $product;
+                        $product = wc_get_product($product_obj->get_id());
                         wc_get_template_part('content', 'product');
                     }
                     echo '</div>';
@@ -396,6 +398,8 @@ if (!function_exists('the_row')) {
                     foreach ($new_arrivals as $product_obj) {
                         $post_object = get_post($product_obj->get_id());
                         setup_postdata($GLOBALS['post'] =& $post_object);
+                        global $product;
+                        $product = wc_get_product($product_obj->get_id());
                         wc_get_template_part('content', 'product');
                     }
                     echo '</div>';

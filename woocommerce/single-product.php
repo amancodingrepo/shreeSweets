@@ -139,6 +139,10 @@ get_header('shop'); ?>
         letter-spacing: 2px;
     }
 
+    .stars-empty {
+        color: var(--brand-border);
+    }
+
     .rating-count {
         color: var(--brand-gray);
         text-decoration: underline;
@@ -183,7 +187,7 @@ get_header('shop'); ?>
     .tax-shipping-info {
         font-size: 12px;
         color: var(--brand-gray);
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
     }
 
     .short-desc {
@@ -196,7 +200,7 @@ get_header('shop'); ?>
 
     /* Weight Selection */
     .weight-label {
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
         color: var(--brand-dark);
         margin-bottom: 0.75rem;
@@ -206,20 +210,19 @@ get_header('shop'); ?>
     .weight-chips {
         display: flex;
         gap: 1rem;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         flex-wrap: wrap;
     }
 
     .weight-chip {
-        padding: 0.75rem 1.5rem;
+        padding: 0.5rem 1rem;
         border: 1px solid var(--brand-border);
         border-radius: 8px;
         text-align: center;
         cursor: pointer;
         background: white;
-        min-width: 100px;
+        min-width: 80px;
         transition: all 0.2s;
-        flex: 1;
     }
 
     .weight-chip.active {
@@ -256,6 +259,7 @@ get_header('shop'); ?>
         background: white;
         box-sizing: border-box;
         overflow: hidden;
+        width: 120px;
     }
 
     .quantity-selector .quantity {
@@ -263,10 +267,11 @@ get_header('shop'); ?>
         display: flex;
         align-items: center;
         height: 100%;
+        width: 100%;
     }
 
     .qty-btn {
-        width: 45px;
+        width: 40px;
         height: 100%;
         background: transparent;
         border: none;
@@ -280,7 +285,7 @@ get_header('shop'); ?>
     }
 
     .qty-input {
-        width: 50px !important;
+        width: 40px !important;
         height: 100% !important;
         text-align: center;
         border: none !important;
@@ -303,13 +308,12 @@ get_header('shop'); ?>
 
     .btn-add-to-cart-dark {
         flex: 1;
-        width: 100%;
         height: 54px;
         background: var(--brand-dark);
         color: white;
         border-radius: 8px;
         font-weight: 600;
-        font-size: 16px;
+        font-size: 15px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -393,7 +397,6 @@ get_header('shop'); ?>
         font-size: 13px;
         outline: none;
         min-width: 0;
-        /* Prevents overflow */
     }
 
     .pincode-btn {
@@ -516,32 +519,15 @@ get_header('shop'); ?>
         margin: 0 !important;
     }
 
-    /* Reviews Styling */
-    .fake-review {
+    /* Comments overrides */
+    .woocommerce-Reviews .commentlist {
+        padding: 0;
+        list-style: none;
+    }
+
+    .woocommerce-Reviews .comment {
         padding: 1.5rem 0;
         border-bottom: 1px solid var(--brand-border);
-    }
-
-    .fake-review:last-child {
-        border-bottom: none;
-    }
-
-    .review-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 0.5rem;
-        flex-wrap: wrap;
-    }
-
-    .review-author {
-        font-weight: 700;
-        color: var(--brand-dark);
-    }
-
-    .review-date {
-        font-size: 12px;
-        color: var(--brand-gray);
     }
 
     /* ── RESPONSIVE MEDIA QUERIES ── */
@@ -607,7 +593,7 @@ get_header('shop'); ?>
         }
 
         .product-badge-group {
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 1rem;
         }
     }
@@ -618,24 +604,26 @@ get_header('shop'); ?>
         }
 
         .action-row {
-            flex-direction: column;
-            gap: 1rem;
+            flex-direction: row;
+            gap: 0.5rem;
         }
 
         .quantity-selector {
-            width: 100%;
-            justify-content: space-between;
+            width: 110px;
+            flex-shrink: 0;
             height: 54px;
         }
 
         .qty-input {
-            width: 100%;
+            width: 30px !important;
         }
 
         .btn-add-to-cart-dark {
-            width: 100%;
+            width: auto;
+            flex: 1;
             height: 54px;
-            font-size: 16px;
+            font-size: 14px;
+            padding: 0 0.5rem;
         }
 
         .btn-buy-now {
@@ -644,8 +632,17 @@ get_header('shop'); ?>
             margin-bottom: 1.5rem;
         }
 
+        .weight-chips {
+            gap: 0.5rem;
+        }
+
+        .weight-chip {
+            padding: 0.5rem;
+            min-width: auto;
+            flex: 1;
+        }
+
         .related-grid {
-            grid-template-columns: repeat(2, 1fr);
             gap: 0.75rem;
         }
 
@@ -676,29 +673,60 @@ get_header('shop'); ?>
 </style>
 
 <?php while (have_posts()):
-    the_post(); ?>
-    <?php
+    the_post();
     global $product;
+
     $post_thumbnail_id = $product->get_image_id();
     $attachment_ids = $product->get_gallery_image_ids();
 
     $terms = get_the_terms($product->get_id(), 'product_cat');
-    $primary_cat = ($terms && !is_wp_error($terms) && !empty($terms)) ? $terms[0]->name : 'Uncategorized';
+    $primary_cat = ($terms && !is_wp_error($terms) && !empty($terms)) ? $terms[0]->name : __('Uncategorized', 'woocommerce');
 
-    // Generate random review count
-    $random_review_count = rand(10, 20);
-
-    // Get dynamic attributes or fallback
     $ingredients = $product->get_attribute('ingredients');
     $nutrition = $product->get_attribute('nutrition');
     $shipping = $product->get_attribute('shipping');
+
+    $review_count = $product->get_review_count();
+    $average_rating = $product->get_average_rating();
+
+    // Total Sales logic
+    $total_sales = get_post_meta($product->get_id(), 'total_sales', true);
+    $total_sales_display = $total_sales ? $total_sales : 0;
+
+    // Dynamic Pricing
+    $regular_price = $product->get_regular_price();
+    $sale_price = $product->get_sale_price();
+    $discount_percentage = 0;
+    if ($regular_price && $sale_price && $regular_price > $sale_price) {
+        $discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
+    }
+
+    // Variation attributes specifically for the custom UI (assuming 'pa_weight' or 'weight')
+    $available_variations = [];
+    $target_attribute = '';
+    if ($product->is_type('variable')) {
+        $available_variations = $product->get_available_variations();
+        $attributes = $product->get_variation_attributes();
+
+        foreach ($attributes as $key => $values) {
+            if (stripos($key, 'weight') !== false) {
+                $target_attribute = $key;
+                break;
+            }
+        }
+        if (empty($target_attribute) && !empty($attributes)) {
+            $target_attribute = array_key_first($attributes);
+        }
+    }
     ?>
 
-    <div id="product-<?php the_ID(); ?>" class="product-container">
+    <div id="product-<?php the_ID(); ?>" <?php wc_product_class('product-container', $product); ?>>
 
         <div class="breadcrumb">
-            <a href="<?php echo home_url(); ?>">Home</a> / <a href="<?php echo wc_get_page_permalink('shop'); ?>">Shop</a>
-            / <?php echo esc_html($primary_cat); ?> / <?php the_title(); ?>
+            <a href="<?php echo home_url(); ?>"><?php echo __('Home', 'woocommerce'); ?></a> /
+            <a href="<?php echo wc_get_page_permalink('shop'); ?>"><?php echo __('Shop', 'woocommerce'); ?></a> /
+            <?php echo esc_html($primary_cat); ?> /
+            <?php the_title(); ?>
         </div>
 
         <div class="product-main-layout">
@@ -709,7 +737,13 @@ get_header('shop'); ?>
                         <div class="thumbnail-item active">
                             <?php echo wp_get_attachment_image($post_thumbnail_id, 'thumbnail', false, array('style' => 'width:100%; height:100%; object-fit:cover;')); ?>
                         </div>
+                    <?php else: ?>
+                        <div class="thumbnail-item active">
+                            <img src="<?php echo wc_placeholder_img_src('thumbnail'); ?>"
+                                style="width:100%; height:100%; object-fit:cover;" alt="Placeholder" />
+                        </div>
                     <?php endif; ?>
+
                     <?php if ($attachment_ids): ?>
                         <?php foreach (array_slice($attachment_ids, 0, 4) as $attachment_id): ?>
                             <div class="thumbnail-item">
@@ -731,39 +765,64 @@ get_header('shop'); ?>
             </div>
 
             <div class="product-info">
-                <div class="category-label"><?php echo esc_html($primary_cat); ?> ·</div>
+                <div class="category-label"><?php echo esc_html(strtoupper($primary_cat)); ?> ·</div>
                 <h1 class="product-title"><?php the_title(); ?></h1>
 
                 <div class="rating-row">
-                    <span class="stars">★★★★★</span>
-                    <span style="font-weight: 700;">4.8</span>
-                    <span class="rating-count"><?php echo $random_review_count; ?> reviews</span>
-                    <span class="order-count"><?php echo rand(100, 999); ?>+ orders</span>
+                    <span class="stars"><?php echo str_repeat('★', round($average_rating)); ?></span><span
+                        class="stars-empty"><?php echo str_repeat('★', 5 - round($average_rating)); ?></span>
+                    <span style="font-weight: 700;"><?php echo esc_html($average_rating); ?></span>
+                    <span class="rating-count"><?php echo esc_html($review_count); ?>
+                        <?php echo __('reviews', 'woocommerce'); ?></span>
+                    <?php if ($total_sales_display > 0): ?>
+                        <span class="order-count"><?php echo esc_html($total_sales_display); ?>+
+                            <?php echo __('orders', 'woocommerce'); ?></span>
+                    <?php endif; ?>
                 </div>
 
-                <div class="price-row">
+                <div class="price-row" id="dynamic-price-container">
                     <span class="current-price"><?php echo wc_price(wc_get_price_to_display($product)); ?></span>
-                    <?php if ($product->is_on_sale()): ?>
+                    <?php if ($product->is_on_sale() && $discount_percentage > 0): ?>
                         <span
                             class="original-price"><?php echo wc_price(wc_get_price_to_display($product, array('price' => $product->get_regular_price()))); ?></span>
-                        <span class="discount-badge">
-                            <?php echo round((($product->get_regular_price() - $product->get_price()) / $product->get_regular_price()) * 100); ?>%
-                            OFF
-                        </span>
+                        <span class="discount-badge"><?php echo $discount_percentage; ?>% OFF</span>
                     <?php endif; ?>
                 </div>
 
                 <div class="tax-shipping-info">
-                    Inclusive of all taxes - free shipping on orders above ₹499
+                    <?php echo __('Inclusive of all taxes - Free shipping on orders above ₹499', 'woocommerce'); ?>
                 </div>
 
                 <div class="short-desc">
                     <?php echo apply_filters('woocommerce_short_description', $product->get_short_description()); ?>
                 </div>
 
-                <?php if ($product->is_type('variable')): ?>
-                    <?php woocommerce_variable_add_to_cart(); ?>
-                <?php else: ?>
+                <?php if ($product->is_type('variable') && !empty($target_attribute) && !empty($available_variations)): ?>
+                    <span
+                        class="weight-label"><?php echo __('Select', 'woocommerce') . ' ' . wc_attribute_label($target_attribute); ?></span>
+                    <div class="weight-chips">
+                        <?php foreach ($available_variations as $index => $variation):
+                            $var_price = wc_price($variation['display_price']);
+                            $var_name = isset($variation['attributes']['attribute_' . $target_attribute]) ? $variation['attributes']['attribute_' . $target_attribute] : '';
+                            $is_active = $index === 0 ? 'active' : '';
+                            ?>
+                            <div class="weight-chip <?php echo $is_active; ?>"
+                                data-variation-id="<?php echo esc_attr($variation['variation_id']); ?>"
+                                data-price-html="<?php echo esc_attr($variation['price_html']); ?>">
+                                <b><?php echo esc_html(ucfirst(str_replace('-', ' ', $var_name))); ?></b>
+                                <span><?php echo $var_price; ?></span>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php
+                // Native WooCommerce Add to Cart logic
+                if ($product->is_type('variable')) {
+                    // Outputting default Woo variable add to cart, styling can be adapted or hidden depending on theme
+                    woocommerce_variable_add_to_cart();
+                } else {
+                    ?>
                     <form class="cart"
                         action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
                         method="post" enctype='multipart/form-data'>
@@ -789,14 +848,17 @@ get_header('shop'); ?>
                                     <circle cx="20" cy="21" r="1"></circle>
                                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                                 </svg>
-                                Add to Cart
+                                <?php echo __('Add to Cart', 'woocommerce'); ?>
                             </button>
                         </div>
                     </form>
+                <?php } ?>
 
+                <?php if (!$product->is_type('variable')): ?>
                     <a href="<?php echo esc_url(wc_get_checkout_url() . '?add-to-cart=' . $product->get_id()); ?>"
                         class="btn-buy-now">
-                        Buy Now · <?php echo wc_price(wc_get_price_to_display($product)); ?>
+                        <?php echo __('Buy Now - ', 'woocommerce'); ?>
+                        <?php echo wc_price(wc_get_price_to_display($product)); ?>
                     </a>
                 <?php endif; ?>
 
@@ -812,8 +874,8 @@ get_header('shop'); ?>
                             </svg>
                         </div>
                         <div class="product-badge-text">
-                            <b>Free shipping</b>
-                            <span>Orders above ₹499</span>
+                            <b><?php echo __('Free shipping', 'woocommerce'); ?></b>
+                            <span><?php echo __('Orders above ₹499', 'woocommerce'); ?></span>
                         </div>
                     </div>
                     <div class="product-badge-item">
@@ -825,8 +887,8 @@ get_header('shop'); ?>
                             </svg>
                         </div>
                         <div class="product-badge-text">
-                            <b>2-5 day delivery</b>
-                            <span>Same-day in Indore</span>
+                            <b><?php echo __('2-5 day delivery', 'woocommerce'); ?></b>
+                            <span><?php echo __('Same-day in Indore', 'woocommerce'); ?></span>
                         </div>
                     </div>
                     <div class="product-badge-item">
@@ -838,8 +900,8 @@ get_header('shop'); ?>
                             </svg>
                         </div>
                         <div class="product-badge-text">
-                            <b>FSSAI certified</b>
-                            <span>Made fresh daily</span>
+                            <b><?php echo __('FSSAI certified', 'woocommerce'); ?></b>
+                            <span><?php echo __('Made fresh daily', 'woocommerce'); ?></span>
                         </div>
                     </div>
                     <div class="product-badge-item">
@@ -850,24 +912,30 @@ get_header('shop'); ?>
                             </svg>
                         </div>
                         <div class="product-badge-text">
-                            <b>7-day freshness</b>
-                            <span>Easy returns</span>
+                            <b><?php echo __('7-day freshness', 'woocommerce'); ?></b>
+                            <span><?php echo __('Easy returns', 'woocommerce'); ?></span>
                         </div>
                     </div>
                 </div>
 
                 <div style="margin-top: 2rem;">
-                    <span class="pincode-label">Check delivery pincode</span>
+                    <span class="pincode-label"><?php echo __('Check delivery pincode', 'woocommerce'); ?></span>
                     <div class="pincode-widget">
-                        <input type="text" placeholder="Enter pincode" class="pincode-input" maxlength="6" />
-                        <button class="pincode-btn">Check</button>
+                        <input type="text" placeholder="<?php echo esc_attr__('Enter pincode', 'woocommerce'); ?>"
+                            class="pincode-input" maxlength="6" />
+                        <button class="pincode-btn"><?php echo __('Check', 'woocommerce'); ?></button>
                     </div>
+                    <?php
+                    $recent_views = get_post_meta($product->get_id(), '_recent_purchases_cache', true);
+                    if (!$recent_views)
+                        $recent_views = rand(5, 45);
+                    ?>
                     <div class="purchase-activity">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M17.5 19.125c-1.5 1.5-3.5 2.5-6.5 2.5-4 0-7-3-7-7 0-3.5 2-6.5 4.5-8.5.5-.5 1.5-.5 2 0 1.5 1.5 2.5 3.5 2.5 6 0 1.5-.5 3-1.5 4-1 1-2 1.5-2 1.5s1 1.5 2.5 1.5c1.5 0 2.5-1 3.5-2 .5-.5 1-.5 1.5 0 .5.5.5 1 0 1.5z" />
                         </svg>
-                        <?php echo rand(5, 25); ?> people bought this in the last hour
+                        <?php echo sprintf(__('%d people bought this recently', 'woocommerce'), $recent_views); ?>
                     </div>
                 </div>
 
@@ -876,17 +944,20 @@ get_header('shop'); ?>
 
         <div class="tabs-container">
             <ul class="tabs-list">
-                <li class="active" data-tab="tab-description">Description</li>
+                <li class="active" data-tab="tab-description"><?php echo __('Description', 'woocommerce'); ?></li>
                 <?php if ($ingredients): ?>
-                    <li data-tab="tab-ingredients">Ingredients</li>
+                    <li data-tab="tab-ingredients"><?php echo __('Ingredients', 'woocommerce'); ?></li>
                 <?php endif; ?>
                 <?php if ($nutrition): ?>
-                    <li data-tab="tab-nutrition">Nutrition Info</li>
+                    <li data-tab="tab-nutrition"><?php echo __('Nutrition Info', 'woocommerce'); ?></li>
                 <?php endif; ?>
                 <?php if ($shipping): ?>
-                    <li data-tab="tab-shipping">Shipping & Returns</li>
+                    <li data-tab="tab-shipping"><?php echo __('Shipping & Returns', 'woocommerce'); ?></li>
                 <?php endif; ?>
-                <li data-tab="tab-reviews">Reviews (<?php echo $random_review_count; ?>)</li>
+                <?php if (comments_open()): ?>
+                    <li data-tab="tab-reviews"><?php echo __('Reviews', 'woocommerce'); ?>
+                        (<?php echo esc_html($review_count); ?>)</li>
+                <?php endif; ?>
             </ul>
 
             <div id="tab-description" class="tab-content" style="display: block;">
@@ -911,51 +982,16 @@ get_header('shop'); ?>
                 </div>
             <?php endif; ?>
 
-            <div id="tab-reviews" class="tab-content" style="display: none;">
-                <h3>Customer Reviews</h3>
-                <?php
-                $fake_names = ['Rajesh K.', 'Priya S.', 'Amit V.', 'Neha G.', 'Suresh P.', 'Anita M.', 'Rahul T.', 'Meera S.', 'Vikas R.', 'Pooja B.', 'Anand D.', 'Kavita L.', 'Ravi J.', 'Sunita N.', 'Deepak M.', 'Sneha P.', 'Manoj K.', 'Aarti C.', 'Sanjay S.', 'Renu V.'];
-                $fake_comments = [
-                    'Absolutely loved the quality. Will definitely order again!',
-                    'Authentic taste and fresh packaging. Highly recommended.',
-                    'Good product, but delivery took an extra day. Still worth it.',
-                    'Exactly as described. The taste is incredibly balanced.',
-                    'My family loves this! We order it every month.',
-                    'Premium quality! You can really tell they use good ingredients.',
-                    'Very crispy and fresh. Arrived in perfect condition.',
-                    'Tastes just like the traditional ones I used to have as a kid.',
-                    'Great packaging. Makes for a perfect gift too!',
-                    'A bit pricey, but the quality justifies the cost.',
-                    'Delicious! It vanished from the jar in just two days.',
-                    'Perfect accompaniment with evening tea.',
-                    'Highly satisfied with the purchase. Fresh and crunchy.',
-                    'The flavor profile is spot on. Not too overpowering.',
-                    'Impressive quality control. Every piece tastes consistent.'
-                ];
-
-                shuffle($fake_names);
-                for ($i = 0; $i < $random_review_count; $i++) {
-                    $name = isset($fake_names[$i]) ? $fake_names[$i] : 'Verified Customer';
-                    $comment = $fake_comments[array_rand($fake_comments)];
-                    $days_ago = rand(1, 30);
-                    ?>
-                    <div class="fake-review">
-                        <div class="review-header">
-                            <div>
-                                <span class="stars" style="font-size: 12px;">★★★★★</span>
-                                <span class="review-author ml-2" style="margin-left: 8px;"><?php echo $name; ?></span>
-                            </div>
-                            <span class="review-date"><?php echo $days_ago; ?> days ago</span>
-                        </div>
-                        <p style="margin-top: 8px; font-size: 13px;"><?php echo $comment; ?></p>
-                    </div>
-                <?php } ?>
-            </div>
+            <?php if (comments_open()): ?>
+                <div id="tab-reviews" class="tab-content" style="display: none;">
+                    <?php comments_template(); ?>
+                </div>
+            <?php endif; ?>
         </div>
 
         <div class="related-section">
-            <span class="related-subtitle">YOU MIGHT ALSO LIKE</span>
-            <h2 class="related-title">Customers also bought</h2>
+            <span class="related-subtitle"><?php echo __('YOU MIGHT ALSO LIKE', 'woocommerce'); ?></span>
+            <h2 class="related-title"><?php echo __('Customers also bought', 'woocommerce'); ?></h2>
 
             <?php
             $related_ids = wc_get_related_products($product->get_id(), 4);
@@ -995,26 +1031,34 @@ get_header('shop'); ?>
         });
 
         // Quantity (Custom Buttons controlling Woo Input)
-        const qtyInput = document.querySelector('.qty-input');
-        const qtyMinus = document.querySelector('.qty-btn.minus');
-        const qtyPlus = document.querySelector('.qty-btn.plus');
+        const qtyInputs = document.querySelectorAll('.qty-input');
 
-        if (qtyInput && qtyMinus && qtyPlus) {
-            qtyMinus.addEventListener('click', () => {
-                let val = parseInt(qtyInput.value) || 1;
-                let min = parseInt(qtyInput.getAttribute('min')) || 1;
-                if (val > min) {
-                    qtyInput.value = val - 1;
+        qtyInputs.forEach(qtyInput => {
+            const container = qtyInput.closest('.quantity-selector');
+            if (container) {
+                const qtyMinus = container.querySelector('.qty-btn.minus');
+                const qtyPlus = container.querySelector('.qty-btn.plus');
+
+                if (qtyMinus && qtyPlus) {
+                    qtyMinus.addEventListener('click', () => {
+                        let val = parseInt(qtyInput.value) || 1;
+                        let min = parseInt(qtyInput.getAttribute('min')) || 1;
+                        if (val > min) {
+                            qtyInput.value = val - 1;
+                            qtyInput.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    });
+                    qtyPlus.addEventListener('click', () => {
+                        let val = parseInt(qtyInput.value) || 1;
+                        let max = parseInt(qtyInput.getAttribute('max'));
+                        if (!max || val < max) {
+                            qtyInput.value = val + 1;
+                            qtyInput.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    });
                 }
-            });
-            qtyPlus.addEventListener('click', () => {
-                let val = parseInt(qtyInput.value) || 1;
-                let max = parseInt(qtyInput.getAttribute('max'));
-                if (!max || val < max) {
-                    qtyInput.value = val + 1;
-                }
-            });
-        }
+            }
+        });
 
         // Gallery Thumbnail Switching
         const thumbs = document.querySelectorAll('.thumbnail-item');
@@ -1030,6 +1074,32 @@ get_header('shop'); ?>
                     if (img) {
                         mainImg.src = img.src;
                         mainImg.srcset = img.srcset || '';
+                    }
+                });
+            });
+        }
+
+        // Custom Variations selection logic (to link visual chips to WooCommerce hidden selects)
+        const weightChips = document.querySelectorAll('.weight-chip');
+        if (weightChips.length > 0) {
+            weightChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    weightChips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+
+                    const newPriceHtml = chip.getAttribute('data-price-html');
+                    const priceContainer = document.getElementById('dynamic-price-container');
+                    if (newPriceHtml && priceContainer) {
+                        priceContainer.innerHTML = newPriceHtml;
+                    }
+
+                    // Attempt to sync with native woo dropdown if it exists
+                    const targetAttribute = '<?php echo esc_js($target_attribute); ?>';
+                    const nativeSelect = document.getElementById(targetAttribute);
+                    if (nativeSelect) {
+                        const val = chip.querySelector('b').innerText.toLowerCase().replace(' ', '-');
+                        nativeSelect.value = val;
+                        nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
                     }
                 });
             });
