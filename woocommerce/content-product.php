@@ -34,7 +34,11 @@ $sale_price    = (float) $product->get_sale_price();
 $discountRaw   = ( $regular_price > 0 && $sale_price > 0 ) ? round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 ) : 0;
 
 // Attributes
-$is_pure_veg    = true; // Static as per React source
+$is_pure_veg    = true; // Default; override with product attribute if available
+$veg_attr = $product->get_attribute('veg');
+if ($veg_attr && strtolower($veg_attr) === 'non-veg') {
+    $is_pure_veg = false;
+}
 $weight_options = array(); // Will be empty unless we fetch variations
 if ( $product->is_type( 'variable' ) ) {
     $variations = $product->get_variation_attributes();
@@ -46,14 +50,19 @@ if ( $product->is_type( 'variable' ) ) {
 // Minimal mode for specific sections
 $minimal = isset( $args['minimal'] ) ? $args['minimal'] : false;
 
-// Mock status as per React
-$status_types = [
-    ['text' => 'Fresh batch today', 'color' => 'green'],
-    ['text' => 'Only %d left in stock', 'color' => 'orange', 'dynamic' => 5],
-    ['text' => 'Bestseller this week', 'color' => 'green'],
-    ['text' => 'Just launched', 'color' => 'green']
-];
-$status = $status_types[$product_id % 4];
+// Dynamic stock status
+$stock_qty = $product->get_stock_quantity();
+if ($product->is_on_sale()) {
+    $status = ['text' => 'On sale now', 'color' => 'orange'];
+} elseif ($stock_qty !== null && $stock_qty > 0 && $stock_qty <= 5) {
+    $status = ['text' => sprintf('Only %d left in stock', $stock_qty), 'color' => 'orange'];
+} elseif ($product->is_featured()) {
+    $status = ['text' => 'Bestseller this week', 'color' => 'green'];
+} elseif ((time() - strtotime($product->get_date_created())) < (30 * 24 * 3600)) {
+    $status = ['text' => 'Just launched', 'color' => 'green'];
+} else {
+    $status = ['text' => 'Fresh batch today', 'color' => 'green'];
+}
 ?>
 
 <li <?php wc_product_class( 'product-card bg-white border-[1.5px] border-brand-line rounded-xl overflow-hidden transition-all duration-200 flex flex-col relative hover:border-brand-orange hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 group', $product ); ?>>
@@ -106,11 +115,14 @@ $status = $status_types[$product_id % 4];
         </p>
 
         <!-- Rating -->
+        <?php $avg_rating = $product->get_average_rating(); $review_count = $product->get_review_count(); ?>
+        <?php if ($avg_rating > 0 || $review_count > 0): ?>
         <div class="flex items-center gap-1.5 flex-wrap">
-            <span class="text-brand-orange text-[11px] tracking-widest leading-none">★★★★★</span>
-            <span class="text-[12px] text-[#444] font-semibold"><?php echo esc_html( $product->get_average_rating() ?: '4.8' ); ?></span>
-            <span class="text-[11px] text-[#999]">(<?php echo esc_html( $product->get_review_count() ?: '423' ); ?>)</span>
+            <span class="text-brand-orange text-[11px] tracking-widest leading-none"><?php echo str_repeat('★', round($avg_rating)); ?><?php echo str_repeat('☆', 5 - round($avg_rating)); ?></span>
+            <span class="text-[12px] text-[#444] font-semibold"><?php echo esc_html( $avg_rating ); ?></span>
+            <span class="text-[11px] text-[#999]">(<?php echo esc_html( $review_count ); ?>)</span>
         </div>
+        <?php endif; ?>
 
         <!-- Weight Variations -->
         <?php if ( ! empty( $weight_options ) ) : ?>

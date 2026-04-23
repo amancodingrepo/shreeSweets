@@ -58,8 +58,8 @@ get_header();
     #shop-layout {
         display: flex;
         gap: 2.5rem;
-        height: calc(100vh - 260px);
-        min-height: 600px;
+        height: calc(100vh - 200px);
+        min-height: 500px;
         overflow: hidden;
     }
 

@@ -41,7 +41,7 @@ function openCartDrawer() {
 </script>
 <!-- Topbar matched to React Header.tsx -->
 <div id="shree-topbar" class="hidden md:block bg-brand-orange text-white text-center py-2 px-5 text-xs font-medium tracking-wide relative">
-    <span>🎉 Diwali Sale — Use code <b>DIWALI10</b> for 10% off · Free shipping above ₹499</span>
+    <span>Free shipping above ₹499 · Same-day delivery in Indore</span>
     <button onclick="hideTopbar()" class="absolute right-5 top-1/2 -translate-y-1/2 opacity-70 hover:opacity-100 text-lg leading-none cursor-pointer" aria-label="Close">
         ✕
     </button>
