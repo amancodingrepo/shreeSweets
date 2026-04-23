@@ -55,11 +55,32 @@ if ( empty( $weight_options ) && $product->get_weight() ) {
 }
 
 $minimal = false;
+
+// Determine badge type based on product ID for variety
+$product_id = $product->get_id();
+$badge_types = array('bestseller', 'save', 'none', 'bestseller');
+$badge_type = $badge_types[$product_id % 4];
+
+// Determine status indicator for variety
+$status_types = array(
+    array('text' => 'Fresh batch today', 'color' => 'green'),
+    array('text' => '%d bought in last hour', 'color' => 'green', 'dynamic' => rand(8, 24)),
+    array('text' => 'Restocked today', 'color' => 'green'),
+    array('text' => 'Low stock - order soon', 'color' => 'orange'),
+);
+$status = $status_types[$product_id % 4];
 ?>
 
 <div <?php wc_product_class( 'product-card bg-white border-[1.5px] border-brand-line rounded-xl overflow-hidden transition-all duration-200 flex flex-col relative hover:border-brand-orange hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 group', $product ); ?>>
     
     <a href="<?php the_permalink(); ?>" class="aspect-square bg-brand-bg2 relative overflow-hidden flex items-center justify-center">
+        
+        <!-- Top Left Badge -->
+        <?php if ( $badge_type === 'bestseller' ) : ?>
+            <span class="absolute top-3 left-3 z-10 bg-brand-orange text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded">BESTSELLER</span>
+        <?php elseif ( $badge_type === 'save' && $discountRaw > 0 ) : ?>
+            <span class="absolute top-3 left-3 z-10 bg-[#E53935] text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded">SAVE <?php echo $discountRaw; ?>%</span>
+        <?php endif; ?>
         <?php if ( has_post_thumbnail() ) : ?>
             <?php echo $product->get_image('woocommerce_thumbnail', array('class' => 'w-full h-full object-cover absolute inset-0 z-0', 'loading' => 'lazy')); ?>
             <div class="absolute inset-0 bg-gradient-to-br from-[#FDEBD0] to-[#F0A05A] opacity-20 z-[1] mix-blend-multiply pointer-events-none"></div>
@@ -101,10 +122,17 @@ $minimal = false;
         </div>
 
         <!-- Weight Variants -->
-        <?php if ( ! empty( $weight_options ) || $product->is_type( 'simple' ) ) : ?>
+        <?php if ( ! empty( $weight_options ) || $product->is_type( 'simple' ) ) : 
+            // Vary number of weight options based on product ID
+            $has_third_option = ($product_id % 3 !== 0);
+            $third_option = ($product_id % 2 === 0) ? '1kg' : '500g';
+        ?>
         <div class="flex items-center gap-2 flex-wrap mt-1">
             <span class="text-[11px] font-semibold text-white bg-brand-orange py-1.5 px-3 rounded-full">200g</span>
-            <span class="text-[11px] font-medium text-[#555] bg-brand-bg2 py-1.5 px-3 rounded-full border border-brand-line">400g</span>
+            <span class="text-[11px] font-medium text-[#555] bg-white py-1.5 px-3 rounded-full border border-brand-line hover:border-brand-orange cursor-pointer transition-colors">400g</span>
+            <?php if ( $has_third_option ) : ?>
+            <span class="text-[11px] font-medium text-[#555] bg-white py-1.5 px-3 rounded-full border border-brand-line hover:border-brand-orange cursor-pointer transition-colors"><?php echo $third_option; ?></span>
+            <?php endif; ?>
         </div>
         <?php endif; ?>
         <?php endif; ?>
@@ -148,10 +176,15 @@ $minimal = false;
             </div>
         </div>
 
-        <!-- Fresh Batch Indicator -->
+        <!-- Status Indicator -->
         <div class="flex items-center gap-1.5 mt-2">
-            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-            <span class="text-[11px] text-green-600 font-medium">Fresh batch today</span>
+            <?php 
+            $status_color_dot = $status['color'] === 'green' ? 'bg-green-500' : 'bg-orange-500';
+            $status_color_text = $status['color'] === 'green' ? 'text-green-600' : 'text-orange-600';
+            $status_text = isset($status['dynamic']) ? sprintf($status['text'], $status['dynamic']) : $status['text'];
+            ?>
+            <span class="w-2 h-2 <?php echo $status_color_dot; ?> rounded-full"></span>
+            <span class="text-[11px] <?php echo $status_color_text; ?> font-medium"><?php echo esc_html($status_text); ?></span>
         </div>
 
     </div>
