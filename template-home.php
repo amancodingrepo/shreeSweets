@@ -324,15 +324,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Bestsellers Section -->
     <section class="home-section" style="padding-top: 0;">
-        <div class="max-w-full mx-auto px-4 md:px-10">
-            <div class="flex items-end justify-between mb-7 md:mb-10 gap-4 px-1 md:px-0">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
+            <div class="flex items-end justify-between mb-7 md:mb-10 gap-4">
                     <div>
                         <span class="section-label">Most loved this week</span>
                         <h2 class="section-heading">
                             <?php echo esc_html((function_exists('get_field') && get_field('best_heading')) ? get_field('best_heading') : 'Bestsellers'); ?>
                         </h2>
                     </div>
-                <a href="<?php echo esc_url( home_url( '/shop/' ) ); ?>" class="text-[13px] font-medium text-[#555] hover:text-brand-orange transition-colors">All products &rarr;</a>
+                <a href="<?php echo esc_url( home_url( '/shop/' ) ); ?>" class="inline-flex items-center gap-1 text-[13px] font-semibold text-brand-orange border border-brand-orange rounded-full px-5 py-2 hover:bg-brand-orange hover:text-white transition-all">All <?php echo function_exists('wp_count_posts') ? wp_count_posts('product')->publish : '89'; ?> products &rarr;</a>
             </div>
 
             <?php
@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Promo Banners -->
     <section class="mt-8 md:mt-[52px]">
-        <div class="max-w-full mx-auto px-5 md:px-10">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                 <?php 
                 $has_promos = function_exists('have_rows') && have_rows('promo_banners');
@@ -408,8 +408,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- New Arrivals Section -->
     <section class="home-section" style="padding-top: 0;">
-        <div class="max-w-full mx-auto px-4 md:px-10">
-            <div class="flex items-end justify-between mb-7 md:mb-10 gap-4 px-1 md:px-0">
+        <div class="max-w-full mx-auto px-6 md:px-16 lg:px-20">
+            <div class="flex items-end justify-between mb-7 md:mb-10 gap-4">
                     <div>
                         <span class="section-label">Just added</span>
                         <h2 class="section-heading">

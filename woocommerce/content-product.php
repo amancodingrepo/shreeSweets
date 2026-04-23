@@ -58,15 +58,15 @@ $minimal = false;
 
 // Determine badge type based on product ID for variety
 $product_id = $product->get_id();
-$badge_types = array('bestseller', 'save', 'none', 'bestseller');
+$badge_types = array('bestseller', 'save', 'bestseller', 'new_arrival');
 $badge_type = $badge_types[$product_id % 4];
 
 // Determine status indicator for variety
 $status_types = array(
-    array('text' => 'Fresh batch today', 'color' => 'green'),
     array('text' => '%d bought in last hour', 'color' => 'green', 'dynamic' => rand(8, 24)),
+    array('text' => 'Fresh batch today', 'color' => 'green'),
     array('text' => 'Restocked today', 'color' => 'green'),
-    array('text' => 'Low stock - order soon', 'color' => 'orange'),
+    array('text' => 'Just launched', 'color' => 'green'),
 );
 $status = $status_types[$product_id % 4];
 ?>
@@ -80,6 +80,8 @@ $status = $status_types[$product_id % 4];
             <span class="absolute top-3 left-3 z-10 bg-brand-orange text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded">BESTSELLER</span>
         <?php elseif ( $badge_type === 'save' && $discountRaw > 0 ) : ?>
             <span class="absolute top-3 left-3 z-10 bg-[#E53935] text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded">SAVE <?php echo $discountRaw; ?>%</span>
+        <?php elseif ( $badge_type === 'new_arrival' ) : ?>
+            <span class="absolute top-3 left-3 z-10 bg-[#27AE60] text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded">NEW ARRIVAL</span>
         <?php endif; ?>
         <?php if ( has_post_thumbnail() ) : ?>
             <?php echo $product->get_image('woocommerce_thumbnail', array('class' => 'w-full h-full object-cover absolute inset-0 z-0', 'loading' => 'lazy')); ?>
